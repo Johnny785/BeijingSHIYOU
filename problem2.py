@@ -3,10 +3,11 @@ def markMissingParentheses(source:str):
     if len(source) == 0:
         return ""
     begin = 0
-    mark_seq_right = ""
     stack = []
-    char_list = []
+    char_list = [] # Stores characters of the current mark string
+    # Push begin to the right
     while begin < len(source):
+        # Try to match right parentheses to left parentheses, otherwise mark as ?
         if source[begin] == ')':
             if len(stack) == 0:
                 char_list.append("?")
@@ -14,11 +15,11 @@ def markMissingParentheses(source:str):
                 char_list[stack[-1]] = " "
                 stack.pop(-1)
                 char_list.append(" ")
-
+        # Add index to the stack if we encounter left parentheses, and default mark to x
         elif source[begin] == '(':
-            # Search right to find a matching parentheses
             stack.append(begin)
             char_list.append("x")
+        # Add space for all other characters
         else:
             char_list.append(" ")
         begin += 1
